@@ -1,9 +1,12 @@
+import FeaturedEvents from "@/components/home/FeaturedEvents";
+import HeroSection from "@/components/home/HeroSection";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="text-7xl text-amber-700">
-      Homepage
-    </div>
+    <main>
+      <HeroSection></HeroSection>
+      <FeaturedEvents></FeaturedEvents>
+    </main>
   );
 }
