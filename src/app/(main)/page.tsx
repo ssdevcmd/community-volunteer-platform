@@ -1,4 +1,5 @@
 import CategoriesSection from "@/components/home/CategoriesSection";
+import CTASection from "@/components/home/CTASection";
 import FeaturedEvents from "@/components/home/FeaturedEvents";
 import HeroSection from "@/components/home/HeroSection";
 import HowItWorks from "@/components/home/HowItWorks";
@@ -12,6 +13,7 @@ export default function Home() {
       <CategoriesSection></CategoriesSection>
       <ImpactStats></ImpactStats>
       <HowItWorks></HowItWorks>
+      <CTASection></CTASection>
     </main>
   );
 }
