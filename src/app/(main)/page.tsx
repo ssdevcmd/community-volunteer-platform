@@ -1,8 +1,9 @@
 import CategoriesSection from "@/components/home/CategoriesSection";
+import CTASection from "@/components/home/CTASection";
 import FeaturedEvents from "@/components/home/FeaturedEvents";
 import HeroSection from "@/components/home/HeroSection";
+import HowItWorks from "@/components/home/HowItWorks";
 import ImpactStats from "@/components/home/ImpactStats";
-import Image from "next/image";
 
 export default function Home() {
   return (
@@ -11,6 +12,8 @@ export default function Home() {
       <FeaturedEvents></FeaturedEvents>
       <CategoriesSection></CategoriesSection>
       <ImpactStats></ImpactStats>
+      <HowItWorks></HowItWorks>
+      <CTASection></CTASection>
     </main>
   );
 }
