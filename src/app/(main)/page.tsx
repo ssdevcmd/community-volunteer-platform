@@ -11,8 +11,8 @@ export default function Home() {
       <HeroSection></HeroSection>
       <FeaturedEvents></FeaturedEvents>
       <CategoriesSection></CategoriesSection>
-      <ImpactStats></ImpactStats>
       <HowItWorks></HowItWorks>
+      <ImpactStats></ImpactStats>
       <CTASection></CTASection>
     </main>
   );
