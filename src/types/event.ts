@@ -15,3 +15,8 @@ export interface Event {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface EventsResponse {
+  events: Event[];
+  total: number;
+}
