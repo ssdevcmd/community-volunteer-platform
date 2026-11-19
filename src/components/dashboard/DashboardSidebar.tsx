@@ -83,7 +83,7 @@ const navigation: Record<Role, NavItem[]> = {
     },
     {
       label: "Manage Events",
-      href: "/dashboard/organizer/events",
+      href: "/dashboard/organizer/my-events",
       icon: CalendarDays,
     },
     {

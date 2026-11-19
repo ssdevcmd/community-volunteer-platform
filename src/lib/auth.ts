@@ -1,11 +1,12 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { MongoClient } from "mongodb";
+import { jwt } from "better-auth/plugins";
 
 const uri = process.env.MONGO_URI;
 
 if (!uri) {
-  throw new Error("MONGODB_URI is missing from environment variables.");
+  throw new Error("MONGO_URI is missing from environment variables.");
 }
 
 const globalForMongo = globalThis as typeof globalThis & {
@@ -20,6 +21,10 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export const auth = betterAuth({
+  baseURL:
+    process.env.BETTER_AUTH_URL ||
+    "http://localhost:3000",
+
   database: mongodbAdapter(client.db(), { client }),
 
   emailAndPassword: {
@@ -38,4 +43,16 @@ export const auth = betterAuth({
       },
     },
   },
+
+  plugins: [
+    jwt({
+      jwt: {
+        definePayload: ({ user }) => ({
+          id: user.id,
+          email: user.email,
+          role: user.role,
+        }),
+      },
+    }),
+  ],
 });

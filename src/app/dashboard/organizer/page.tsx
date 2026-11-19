@@ -159,7 +159,7 @@ export default function OrganizerDashboardPage() {
           <QuickAction
             title="Manage Events"
             description="Edit and manage your existing events."
-            href="/dashboard/organizer/events"
+            href="/dashboard/organizer/my-events"
             icon={<CalendarDays size={21} />}
           />
 
@@ -186,7 +186,7 @@ export default function OrganizerDashboardPage() {
           </div>
 
           <Link
-            href="/dashboard/organizer/events"
+            href="/dashboard/organizer/my-events"
             className="inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:text-red-700"
           >
             Manage All <ArrowRight size={16} />
