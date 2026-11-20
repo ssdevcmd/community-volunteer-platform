@@ -106,7 +106,7 @@ export default function CreateEventPage() {
         }),
       });
 
-      router.push("/dashboard/organizer/manage-events");
+      router.push("/dashboard/organizer/my-events");
       router.refresh();
     } catch (err) {
       setError(
