@@ -42,7 +42,7 @@ const navigation: Record<Role, NavItem[]> = {
     },
     {
       label: "My Profile",
-      href: "/dashboard/profile",
+      href: "/dashboard/user/profile",
       icon: User,
     },
   ],
