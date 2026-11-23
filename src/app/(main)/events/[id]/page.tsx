@@ -16,19 +16,26 @@ import {
 
 import { apiRequest } from "@/lib/api";
 import type { Event } from "@/types/event";
+import { authClient } from "@/lib/auth-client";
 
 interface EventResponse {
   success: boolean;
   event: Event;
 }
 
-export default function EventsDetailsPage () {
+export default function EventsDetailsPage() {
   const params = useParams();
   const id = params.id as string;
 
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const { data: session } = authClient.useSession();
+
+  const [registering, setRegistering] = useState(false);
+  const [registrationMessage, setRegistrationMessage] = useState("");
+  const [registrationError, setRegistrationError] = useState("");
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -56,6 +63,46 @@ export default function EventsDetailsPage () {
       fetchEvent();
     }
   }, [id]);
+
+  const handleRegister = async () => {
+    if (!session?.user) {
+      setRegistrationError("Please log in before registering.");
+      return;
+    }
+
+    if (session.user.role !== "VOLUNTEER") {
+      setRegistrationError(
+        "Only volunteers can register for events."
+      );
+      return;
+    }
+
+    try {
+      setRegistering(true);
+      setRegistrationMessage("");
+      setRegistrationError("");
+
+      const response = await apiRequest<{
+        success: boolean;
+        message: string;
+      }>("/api/registrations", {
+        method: "POST",
+        body: JSON.stringify({
+          eventId: event?._id,
+        }),
+      });
+
+      setRegistrationMessage(response.message);
+    } catch (err) {
+      setRegistrationError(
+        err instanceof Error
+          ? err.message
+          : "Registration failed. Please try again."
+      );
+    } finally {
+      setRegistering(false);
+    }
+  };
 
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("en-US", {
@@ -270,6 +317,44 @@ export default function EventsDetailsPage () {
               <ArrowLeft size={18} />
               Explore More Events
             </Link>
+
+            <button
+              onClick={handleRegister}
+              disabled={
+                registering ||
+                !session?.user ||
+                session.user.role !== "VOLUNTEER" ||
+                new Date(event.registrationDeadline) <= new Date() ||
+                new Date(event.date) <= new Date()
+              }
+              className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 px-5 py-3 font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-gray-400"
+            >
+              {registering ? "Registering..." : "Register Now"}
+            </button>
+
+            {registrationMessage && (
+              <p className="mt-3 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-700">
+                {registrationMessage}
+              </p>
+            )}
+
+            {registrationError && (
+              <p className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+                {registrationError}
+              </p>
+            )}
+
+            {!session?.user && (
+              <p className="mt-3 text-center text-xs text-gray-500">
+                Please log in as a volunteer to register.
+              </p>
+            )}
+
+            {session?.user && session.user.role !== "VOLUNTEER" && (
+              <p className="mt-3 text-center text-xs text-gray-500">
+                Only volunteer accounts can register.
+              </p>
+            )}
           </aside>
         </div>
       </div>
