@@ -18,6 +18,7 @@ import {
   Menu,
   X,
   CalendarCheck,
+  UserCheck,
 } from "lucide-react";
 
 type Role = "USER" | "VOLUNTEER" | "ORGANIZER";
@@ -39,6 +40,11 @@ const navigation: Record<Role, NavItem[]> = {
       label: "Browse Events",
       href: "/events",
       icon: CalendarDays,
+    },
+    {
+      label: "Become a Volunteer",
+      href: "/dashboard/user/become-volunteer",
+      icon: HeartHandshake,
     },
     {
       label: "My Profile",
@@ -85,6 +91,11 @@ const navigation: Record<Role, NavItem[]> = {
       label: "Manage Events",
       href: "/dashboard/organizer/my-events",
       icon: CalendarDays,
+    },
+    {
+      label: "Volunteer Applications",
+      href: "/dashboard/organizer/volunteer-applications",
+      icon: UserCheck,
     },
     {
       label: "Volunteers",
@@ -189,11 +200,10 @@ export default function DashboardSidebar() {
               key={item.href}
               href={item.href}
               onClick={() => setIsOpen(false)}
-              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
-                active
-                  ? "bg-emerald-600 text-white shadow-sm"
-                  : "text-gray-600 hover:bg-emerald-50 hover:text-emerald-700"
-              }`}
+              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${active
+                ? "bg-emerald-600 text-white shadow-sm"
+                : "text-gray-600 hover:bg-emerald-50 hover:text-emerald-700"
+                }`}
             >
               <Icon size={19} />
               {item.label}
