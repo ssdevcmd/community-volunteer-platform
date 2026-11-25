@@ -25,7 +25,7 @@ export const auth = betterAuth({
     process.env.BETTER_AUTH_URL ||
     "http://localhost:3000",
 
-  database: mongodbAdapter(client.db(), { client }),
+  database: mongodbAdapter(client.db("community-volunteer-platform"), { client }),
 
   emailAndPassword: {
     enabled: true,
