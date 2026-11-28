@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 
 import { events } from "@/data/events";
-import type { CommunityEvent } from "@/types";
 
 const themeStyles = {
   green: {
@@ -40,7 +39,7 @@ const themeStyles = {
   },
 };
 
-function EventCard({ event }: { event: CommunityEvent }) {
+function EventCard({ event }: { event: typeof events[number] }) {
   const theme = themeStyles[event.theme];
   const Icon = theme.Icon;
 
